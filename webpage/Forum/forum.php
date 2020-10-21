@@ -20,23 +20,21 @@
     while($ThreadData[]=mysqli_fetch_array($ThreadResult));
     $ThreadNumRows = mysqli_num_rows($ThreadResult);
 
-    //nav stuff
+    //nav shit
     $NavQuery = "SELECT * FROM `NavItems`";
     $NavResult = mysqli_query($connection, $NavQuery) or die(mysqli_error($connection));
 
     while($NavData[]=mysqli_fetch_array($NavResult));
     $NavNumRows = mysqli_num_rows($NavResult);
 
-
     //figurest out wheter a ../ is needed
     $fileArray = explode("/", __FILE__);
-    $path = $fileArray[count($fileArray)-1];
+    $path = $fileArray[count($fileArray)-2];
 
-    $AppQuery = "SELECT * FROM `NavItems` WHERE `path` LIKE '$path'";
+    $AppQuery = "SELECT * FROM `NavItems` WHERE `path` LIKE '%$path%'";
     $AppResult = mysqli_query($connection, $AppQuery) or die(mysqli_error($connection));
 
     $app = mysqli_fetch_array($AppResult)['app'];
-    var_dump($app);
 ?>
 <html>
     <head>
@@ -53,7 +51,7 @@
                     <h3> Navigation </h3>
                     <ul>
                         <?php
-                            if ($app == 0) {
+                            if ($app == null) {
                                 for ($i = 0; $i < $NavNumRows; $i++) {
                                     echo "<li><a href='" . $NavData[$i]['path'] . "'>" . $NavData[$i]['name'] . "</a></li>";
                                 }

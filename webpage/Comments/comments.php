@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require('db_connect.php');
+    require('../db_connect.php');
     $name = $_SESSION['name'];
     $rank = $_SESSION['rank'];
 
@@ -18,25 +18,26 @@
         header("Location: ../index.php");
     }
 
+    //nav shit
     $NavQuery = "SELECT * FROM `NavItems`";
     $NavResult = mysqli_query($connection, $NavQuery) or die(mysqli_error($connection));
-
+    
     while($NavData[]=mysqli_fetch_array($NavResult));
     $NavNumRows = mysqli_num_rows($NavResult);
-
-
+    
     //figurest out wheter a ../ is needed
     $fileArray = explode("/", __FILE__);
-    $path = $fileArray[count($fileArray)-1];
-
-    $AppQuery = "SELECT * FROM `NavItems` WHERE `path` LIKE '$path'";
+    $path = $fileArray[count($fileArray)-2];
+    
+    $AppQuery = "SELECT * FROM `NavItems` WHERE `path` LIKE '%$path%'";
     $AppResult = mysqli_query($connection, $AppQuery) or die(mysqli_error($connection));
-
     $app = mysqli_fetch_array($AppResult)['app'];
 ?>
+
+
 <html>
     <head>
-        <link rel="stylesheet" href="../style/mainstyle.css">
+        <link rel="stylesheet" href="../../style/mainstyle.css">
         <link rel="icon" type="image/png" href="../favicon.ico">
         <title id="title">Comments</title>
     </head>
@@ -50,7 +51,7 @@
                     <h3> Navigation </h3>
                     <ul>
                         <?php
-                            if ($app == 0) {
+                        if ($app == null) {
                                 for ($i = 0; $i < $NavNumRows; $i++) {
                                     echo "<li><a href='" . $NavData[$i]['path'] . "'>" . $NavData[$i]['name'] . "</a></li>";
                                 }
@@ -60,11 +61,12 @@
                                 }
                             }
                         ?>
+                        
                     </ul>
                 </div>
                 <div id="main">
-                <h2>Comments</h2>
-		<p>*Note: dont put your game suggestion here, just email me, its not that hard!</p>
+                    <h2>Comments</h2>
+		            <p>*Note: dont put your game suggestion here, just email me, its not that hard!</p>
                     <p>Posting As... <?php echo $_SESSION['name']; if ($suffix != '') {echo " (". $suffix. ")"; if ($rank != '') { echo " Rank: " . $rank; }}?></p>
                     <form action="comment_code.php" method="GET">
                         Message: <input type="text" autocomplete="off" name="mes"><br>
@@ -78,7 +80,6 @@
                                 echo fread($read, 1024);
                             }
                         ?>
-                    </div>
                 </div>
             </div>
             <div id="footer">
