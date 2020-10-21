@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script src="bigint.js"></script>
+        <script src="script.js"></script>
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <p>Data</p>
+        <p>Enter your keys here</p>
+        <textarea id="N" placeholder="N value"></textarea><textarea id="e" placeholder="e value"></textarea><textarea id="d" placeholder="d value"></textarea><br>
+        <hr>
+        <p>Decryptor</p>
+        <textarea id="dein" placeholder="Encryption In"></textarea><textarea id="deout" placeholder="Dercrypted Out"></textarea><button onclick="decryptData()">Decrypt</button>
+        <hr>
+        <p>Encryptor</p>
+        <h5>Only lowercase and uppercase and theese following special characters: . , ( ) ! ?</h5>
+        <textarea id="ein" placeholder="Decrypted In"></textarea><textarea id="eout" placeholder="Encrypted Out"></textarea><button onclick="encryptData()">Encrypt</button>
+        <hr>
+    </body>
+</html>

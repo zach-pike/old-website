@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <script>
+        function genKeys() {
+            var p = parseInt(document.getElementById("textbx1").value, 10), q = parseInt(document.getElementById("textbx2").value, 10), rsa = (p-1)*(q-1), e = [], d = [], esimp = [], dsimp = [] //defines all the needed variables
+            //check coprime
+            function chekCoprimeNum(a,b){
+                if(b===1){
+                    return true;
+                }
+                if(!(a % b)){
+                    return false;
+                } else {
+                    return chekCoprimeNum(b, a%b);
+                }
+            }
+
+            //finds the coprimes
+            for (let i=0; i < rsa; i++) {
+                if (chekCoprimeNum(rsa, i) == true) {
+                    e[e.length] = i;
+                }
+            }
+
+            //generates all the possible d numbers using the e numbers
+            for (let m = 0; m < e.length; m++) {
+                d[d.length] = (rsa+1) / e[m]
+            }
+
+            //finds a pair of Intergers for the e and d keys
+            for (let l=0; l<e.length; l++) {
+                if (Number.isInteger(e[l]) && Number.isInteger(d[l])) {
+                    esimp = e[l]
+                    dsimp = d[l]
+                }
+            }
+			if (p*q  < 2 || dsimp == 1 || esimp == 1) {
+				document.write("Invalid Keys");
+			} else {
+				document.write("N is: " + (p*q) + " e is: "+ dsimp + " d is: " + esimp);
+			}
+        }
+        </script>
+        <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        </style>
+    </head>
+    <body>
+        <textarea id='textbx1' placeholder="P prime number..."></textarea><textarea id="textbx2" placeholder="Q prime number..."></textarea><br><button onclick="genKeys()">Generate</button>
+    </body>
+</html>
