@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require('../db_connect.php');
+    require('../../db_connect.php');
     $name = $_SESSION['name'];
     $rank = $_SESSION['rank'];
 
@@ -28,10 +28,6 @@
     //figurest out wheter a ../ is needed
     $fileArray = explode("/", __FILE__);
     $path = $fileArray[count($fileArray)-2];
-    
-    $AppQuery = "SELECT * FROM `NavItems` WHERE `path` LIKE '%$path%'";
-    $AppResult = mysqli_query($connection, $AppQuery) or die(mysqli_error($connection));
-    $app = mysqli_fetch_array($AppResult)['app'];
 ?>
 
 
@@ -51,7 +47,7 @@
                     <h3> Navigation </h3>
                     <ul>
                         <?php
-                        if ($app == null) {
+                        if ($path == 'webpage') {
                                 for ($i = 0; $i < $NavNumRows; $i++) {
                                     echo "<li><a href='" . $NavData[$i]['path'] . "'>" . $NavData[$i]['name'] . "</a></li>";
                                 }

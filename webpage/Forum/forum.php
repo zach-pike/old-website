@@ -1,7 +1,7 @@
 <?php
     session_start();
     require('forumDB.php'); //forum db
-    require('../db_connect.php'); //website db
+    require('../../db_connect.php'); //website db
     $name = $_SESSION['name'];
 
     $query = "SELECT * FROM `login` WHERE name='$name'";
@@ -15,7 +15,7 @@
 
     //gets all threads
     $ThreadQuery = "SELECT * FROM `threads`";
-    $ThreadResult = mysqli_query($forumConnection, $ThreadQuery) or die(mysqli_error($connection));
+    $ThreadResult = mysqli_query($forumConnection, $ThreadQuery) or die(mysqli_error($forumConnection));
 
     while($ThreadData[]=mysqli_fetch_array($ThreadResult));
     $ThreadNumRows = mysqli_num_rows($ThreadResult);
@@ -30,11 +30,6 @@
     //figurest out wheter a ../ is needed
     $fileArray = explode("/", __FILE__);
     $path = $fileArray[count($fileArray)-2];
-
-    $AppQuery = "SELECT * FROM `NavItems` WHERE `path` LIKE '%$path%'";
-    $AppResult = mysqli_query($connection, $AppQuery) or die(mysqli_error($connection));
-
-    $app = mysqli_fetch_array($AppResult)['app'];
 ?>
 <html>
     <head>
@@ -51,7 +46,7 @@
                     <h3> Navigation </h3>
                     <ul>
                         <?php
-                            if ($app == null) {
+                            if ($path == 'webpage') {
                                 for ($i = 0; $i < $NavNumRows; $i++) {
                                     echo "<li><a href='" . $NavData[$i]['path'] . "'>" . $NavData[$i]['name'] . "</a></li>";
                                 }

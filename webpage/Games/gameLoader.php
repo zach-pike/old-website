@@ -1,7 +1,6 @@
-<link rel="icon" type="image/png" href="../favicon.ico">
 <?php
     session_start();
-    require('db_connect.php');
+    require('../../db_connect.php');
     $name = $_SESSION['name'];
 
     $query = "SELECT * FROM `login` WHERE name='$name'";
@@ -16,5 +15,5 @@
         header("Location: ../index.php");
     }
 ?>
-<a href="../webpage/games.php">Back</a>
-<embed src="../media/flash/strike-force-heroes-3.swf" width="750" height="600">
+<a href="games.php">Back</a>
+<embed src="../../media/flash/<?php echo $_GET['file']; ?>" width="750" height="600">

@@ -1,5 +1,6 @@
 <?php
-    $connection = mysqli_connect('localhost', 'root', '3.141592653');
+    require('creds.php');
+    $connection = mysqli_connect('localhost', $user, $password);
     if (!$connection){
         die("Database Connection Failed" . mysqli_error($connection));
     }

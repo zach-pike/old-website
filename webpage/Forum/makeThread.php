@@ -1,7 +1,7 @@
 <?php
     session_start();
     require('forumDB.php'); //forum db
-    require('../db_connect.php'); //website db
+    require('../../db_connect.php'); //website db
     $name = $_SESSION['name'];
 
     //login check
@@ -29,7 +29,7 @@
     $test = mysqli_query($forumConnection, "INSERT INTO `threads` (`id`, `username`, `threadTitle`, `text`) VALUES (NULL, '$name', '$threadName', '$threadText')");
 
     $getIdQuery = "SELECT * FROM `threads` WHERE username='$name' and threadTitle='$threadName' and text='$threadText'";
-    $Idresult = mysqli_query($forumConnection, $getIdQuery) or die(mysqli_error($connection));
+    $Idresult = mysqli_query($forumConnection, $getIdQuery) or die(mysqli_error($forumConnection));
     $IDarray = mysqli_fetch_array($Idresult);
     header("Location: viewThread.php?id=" . $IDarray['id']);
 ?>

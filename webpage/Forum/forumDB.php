@@ -1,5 +1,6 @@
 <?php
-    $forumConnection = mysqli_connect('localhost', 'root', '3.141592653');
+    require("../../creds.php");
+    $forumConnection = mysqli_connect('localhost', $user, $password);
     if (!$forumConnection){
         die("Database Connection Failed" . mysqli_error($forumConnection));
     }
