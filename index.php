@@ -8,16 +8,14 @@
     $array = mysqli_fetch_array($result);
     
     $suspend = $array['suspend'];
-
 ?>
 <html>
     <head>
         <script>
-            function myFunction() {
+            function login() {
                 document.location.href="webpage/web.php";
             }
         </script>
-        <link rel="icon" type="image/png" href="favicon.ico">
         <link rel="stylesheet" href="style/indexstyle.css">
         <title>Login</title>
     </head>
@@ -34,7 +32,7 @@
                     if ($_SESSION['name'] != '' && $suspend == '0') {
                         echo "<hr>";
                         echo "You are already logged i n! <br>";
-                        echo '<button onclick="myFunction()">Login</button>';
+                        echo '<button onclick="login()">Login</button>';
                         echo "<hr>";
                     }
                 ?>
