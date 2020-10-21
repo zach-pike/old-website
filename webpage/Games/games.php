@@ -36,7 +36,6 @@
 <html>
     <head>
         <link rel="stylesheet" href="../../style/mainstyle.css">
-        <link rel="icon" type="image/png" href="../favicon.ico">
         <title>Games</title>
     </head>
     <body>
