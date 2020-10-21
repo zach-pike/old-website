@@ -61,7 +61,7 @@
                     <h2>Home Page</h2>
                     <h3>Welcome... <?php echo $name; if($suffix != "") { echo " (". $suffix. ")"; if ($rank != '') { echo " Rank: ". $rank; } }?></h3>
                     <p>Hello, my name is Zachary Pike and <i>well</i> this is my website if you want to know more, go to the about page!</p>
-                    <div id="img"><img src="../media/falling_off_bed.JPG" width="160" height="160"></div>
+                    <div id="img"><img src="../media/images/falling_off_bed.JPG" width="160" height="160"></div>
                 </div>
             </div>
             <div id="footer">
