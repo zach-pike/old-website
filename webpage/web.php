@@ -16,6 +16,12 @@
     if ($count != 1 || $suspend != '0') {
         header("Location: ../index.php");
     }
+
+    $NavQuery = "SELECT * FROM `NavItems`";
+    $NavResult = mysqli_query($forumConnection, $ThreadQuery) or die(mysqli_error($connection));
+
+    while($NavData[]=mysqli_fetch_array($NavResult));
+    //var_dump($NavData);
 ?>
 <html>
     <head>
@@ -33,14 +39,6 @@
                 <div id="nav">
                     <h3> Navigation </h3>
                     <ul>
-                        <li><a class="selected" href="web.php">Home</a></li>
-                        <li><a href="about.php">About</a></li>
-                        <li><a href="contact.php">Contact</a></li>
-                        <li><a href="blog.php">Blog</a></li>
-                        <li><a href="games.php">Games</a></li>   
-                        <li><a href="comments.php">Comments</a></li>
-                        <li><a href="Forum/index.php">Forum</a></li>                     
-                        <li><a href="logout.php">Logout</a></li>
                     </ul>
                 </div>
                 <div id="main">
