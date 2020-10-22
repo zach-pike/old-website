@@ -10,6 +10,7 @@
     $array = mysqli_fetch_array($result);
     $suspend = $array['suspend'];
     $name = $array['name'];
+    $userID = $array['id'];
     $count = mysqli_num_rows($result);
     if ($count != 1 || $suspend != '0') {
         header("Location: ../../index.php");
@@ -26,7 +27,7 @@
     }
 
     //make thread
-    $test = mysqli_query($forumConnection, "INSERT INTO `threads` (`id`, `username`, `threadTitle`, `text`) VALUES (NULL, '$name', '$threadName', '$threadText')");
+    $test = mysqli_query($forumConnection, "INSERT INTO `threads` (`id`, `username`, `posterId`, `threadTitle`, `text`) VALUES (NULL, '$name', '$userID', '$threadName', '$threadText');");
 
     $getIdQuery = "SELECT * FROM `threads` WHERE username='$name' and threadTitle='$threadName' and text='$threadText'";
     $Idresult = mysqli_query($forumConnection, $getIdQuery) or die(mysqli_error($forumConnection));

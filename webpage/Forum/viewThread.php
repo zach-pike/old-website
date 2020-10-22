@@ -89,7 +89,7 @@
                     <?php
                         //shows post
                         if ($userID == $ThreadData['posterId']) {
-                            echo "<p>" . $ThreadData['username'] . " Said: <button>Delete Thread</button></p>";
+                            echo "<p>" . $ThreadData['username'] . " Said: <input type=\"button\" onclick=\"location.href='delete.php?type=thread&id=" . $id . "';\" value=\"Delete Thread\" /> </p>";
                         } else {
                             echo "<p>" . $ThreadData['username'] . " Said:</p>";
                         }
@@ -108,7 +108,7 @@
                         //shows comments
                         for ($x = $responseNumRows-1; $x >= 0; $x--) {
                             if ($userID == $ResponseData[$x]['posterId']) {
-                                echo "<p>" . $ResponseData[$x]['username'] . " Said: <button>Delete</button> </p>" . "<p>" . $ResponseData[$x]['response'] . "</p>";
+                                echo "<p>" . $ResponseData[$x]['username'] . " Said: <input type=\"button\" onclick=\"location.href='delete.php?type=responce&id=" . $ResponseData[$x]['id'] . "';\" value=\"Delete Thread\" /> </p>" . "<p>" . $ResponseData[$x]['response'] . "</p>";
                                 echo "<hr>";
                             } else {
                                 echo "<p>" . $ResponseData[$x]['username'] . " Said:</p>" . "<p>" . $ResponseData[$x]['response'] . "</p>";

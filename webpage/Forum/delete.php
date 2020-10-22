@@ -26,7 +26,9 @@
         header("Location: viewThread.php?id=" . $threadId);
     } else if ($type == "thread") {
         mysqli_query($forumConnection, "DELETE FROM `threads` WHERE `threads`.`id` = $threadId");
+        mysqli_query($forumConnection, "DELETE FROM `threadResponces` WHERE `threadID` = $threadId");
         header("Location: forum.php");
+        
     }
 ?>
 
