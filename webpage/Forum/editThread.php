@@ -22,11 +22,21 @@
     }
 
     if ($type == "responce") {
-        mysqli_query($forumConnection, "DELETE FROM `threadResponces` WHERE `threadResponces`.`id` = $id");
+        $ownerQuery = "SELECT * FROM `threadResponces` WHERE `id` = $id";
+        $ownerResult = mysqli_query($forumConnection, $ownerQuery) or die(mysqli_error($forumConnection));
+        $ownerID = mysqli_fetch_array($ownerResult)['posterId'];
+        if ($ownerID == $userID) {
+            mysqli_query($forumConnection, "DELETE FROM `threadResponces` WHERE `threadResponces`.`id` = $id");
+        }
         header("Location: viewThread.php?id=" . $threadId);
     } else if ($type == "thread") {
-        mysqli_query($forumConnection, "DELETE FROM `threads` WHERE `threads`.`id` = $threadId");
-        mysqli_query($forumConnection, "DELETE FROM `threadResponces` WHERE `threadID` = $threadId");
+        $ownerQuery = "SELECT * FROM `threads` WHERE `id` = $id";
+        $ownerResult = mysqli_query($forumConnection, $ownerQuery) or die(mysqli_error($forumConnection));
+        $ownerID = mysqli_fetch_array($ownerResult)['posterId'];
+        if ($ownerID == $userID) {
+            mysqli_query($forumConnection, "DELETE FROM `threads` WHERE `threads`.`id` = $threadId");
+            mysqli_query($forumConnection, "DELETE FROM `threadResponces` WHERE `threadID` = $threadId");
+        }
         header("Location: forum.php");
         
     }
