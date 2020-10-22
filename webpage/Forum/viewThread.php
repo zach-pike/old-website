@@ -47,6 +47,10 @@
     //figurest out wheter a ../ is needed
     $fileArray = explode("/", __FILE__);
     $path = $fileArray[count($fileArray)-2];
+
+    //gets list of forum admin id's
+    $AdminResult = mysqli_query($connection, "SELECT * FROM `login` WHERE `fourmAdmin` = 1") or die(mysqli_error($connection));
+    while($AdminData[]=mysqli_fetch_array($AdminResult)['id']);
 ?>
 <html>
     <head>
@@ -83,7 +87,7 @@
                     <hr>
                     <?php
                         //shows post
-                        if ($userID == $ThreadData['posterId']) {
+                        if ($userID == $ThreadData['posterId'] || in_array($userID, $AdminData)) {
                             echo "<p>" . $ThreadData['username'] . " Said: <input type=\"button\" onclick=\"location.href='editThread.php?type=thread&id=" . $id . "';\" value=\"Delete Thread\" /> </p>";
                         } else {
                             echo "<p>" . $ThreadData['username'] . " Said:</p>";
@@ -102,7 +106,7 @@
                     <?php
                         //shows comments
                         for ($x = $responseNumRows-1; $x >= 0; $x--) {
-                            if ($userID == $ResponseData[$x]['posterId']) {
+                            if ($userID == $ResponseData[$x]['posterId'] || in_array($userID, $AdminData)) {
                                 echo "<p>" . $ResponseData[$x]['username'] . " Said: <input type=\"button\" onclick=\"location.href='editThread.php?type=responce&id=" . $ResponseData[$x]['id'] . "';\" value=\"Delete\" /> </p>" . "<p>" . $ResponseData[$x]['response'] . "</p>";
                                 echo "<hr>";
                             } else {
