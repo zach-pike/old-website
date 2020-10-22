@@ -2,7 +2,7 @@
     session_start();
     require('forumDB.php'); //fourm db
 
-    require('../db_connect.php'); //website db
+    require('../../db_connect.php'); //website db
     $name = $_SESSION['name']; 
 
     //login check
@@ -10,6 +10,7 @@
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     $array = mysqli_fetch_array($result);
     $suspend = $array['suspend'];
+    $userID = $array['id'];
     $count = mysqli_num_rows($result);
     if ($count != 1 || $suspend != '0') {
         header("Location: ../../index.php");
@@ -24,6 +25,6 @@
         exit();
     }
 
-    mysqli_query($forumConnection, "INSERT INTO `threadResponces` (`id`, `threadID`, `username`, `response`) VALUES (NULL, '$id', '$name', '$reply')");
+    mysqli_query($forumConnection, "INSERT INTO `threadResponces` (`id`, `threadID`, `username`, `posterId`, `response`) VALUES (NULL, '$id', '$name', '$userID', '$reply')");
     header("Location: viewThread.php?id=" . $id);
 ?>

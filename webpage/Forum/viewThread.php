@@ -12,6 +12,7 @@
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     $array = mysqli_fetch_array($result);
     $suspend = $array['suspend']; 
+    $userID = $array['id'];
     $count = mysqli_num_rows($result);
     if ($count != 1 || $suspend != '0') {
         header("Location: ../../index.php");
@@ -51,6 +52,11 @@
     <head>
         <link rel="stylesheet" href="../../../style/mainstyle.css">
         <title id="title">Forum</title>
+        <script>
+            function delete(type, id) {
+                document.location.href="delete.php?type=" + type + "&id=" + id;
+            }
+        </script>
     </head>
     <body>
         <div id="container">
@@ -82,7 +88,11 @@
                     <hr>
                     <?php
                         //shows post
-                        echo "<p>" . $ThreadData['username'] . " Said:</p>";
+                        if ($userID == $ThreadData['posterId']) {
+                            echo "<p>" . $ThreadData['username'] . " Said: <button>Delete Thread</button></p>";
+                        } else {
+                            echo "<p>" . $ThreadData['username'] . " Said:</p>";
+                        }
                         echo "<h2>" . $ThreadData['threadTitle'] . "</h2>";
                         echo "<hr>";
                         echo "<p>" . $ThreadData['text'] . "</p><br>";
@@ -97,8 +107,14 @@
                     <?php
                         //shows comments
                         for ($x = $responseNumRows-1; $x >= 0; $x--) {
-                            echo "<p>" . $ResponseData[$x]['username'] . " Said: </p>" . "<p>" . $ResponseData[$x]['response'] . "</p>";
-                            echo "<hr>";
+                            if ($userID == $ResponseData[$x]['posterId']) {
+                                echo "<p>" . $ResponseData[$x]['username'] . " Said: <button>Delete</button> </p>" . "<p>" . $ResponseData[$x]['response'] . "</p>";
+                                echo "<hr>";
+                            } else {
+                                echo "<p>" . $ResponseData[$x]['username'] . " Said:</p>" . "<p>" . $ResponseData[$x]['response'] . "</p>";
+                                echo "<hr>";
+                            }
+                            
                         }
                     ?>
                 </div>
