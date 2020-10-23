@@ -25,7 +25,7 @@
 
     //if users does not exist or is suspended then kick them out
     if ($count != 1 || $suspend != '0') {
-            header("Location: ../index.php");
+            header("Location: ../../index.php");
     }
 
     //checks to see if the message box is empty, if so put them at the comments

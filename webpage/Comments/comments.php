@@ -15,7 +15,7 @@
 
     $count = mysqli_num_rows($result);
     if ($count != 1 || $suspend != '0') {
-        header("Location: ../index.php");
+        header("Location: ../../index.php");
     }
 
     //nav shit
