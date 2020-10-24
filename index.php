@@ -17,7 +17,7 @@
             }
         </script>
         <link rel="stylesheet" href="style/indexstyle.css">
-        <title>Login</title>
+        <title>Login!</title>
     </head>
     <body>
         <div id="container">
