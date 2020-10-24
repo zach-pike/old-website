@@ -1,25 +1,33 @@
 <?php
+    //starts session, gets db connection, and user id to check login
     session_start();
-    require('forumDB.php'); //login connec
-    require('../../db_connect.php'); //forum db connect
-    $name = $_SESSION['name'];
+    require('../../db_connect.php');
+    require('forumDB.php');
+    $userID = $_SESSION['userID'];
+
+    //kindly asks database if we are logged in
+    $loginQuery = "SELECT * FROM `login` WHERE id='$userID'";
+    $loginResult = mysqli_query($connection, $loginQuery) or die(mysqli_error($connection));
+    $loginArray = mysqli_fetch_array($loginResult);
+
+    $rowCount = mysqli_num_rows($loginResult);
+
+    //all the fancy user shit
+    $suspend = $loginArray['suspend'];
+    $name = $loginArray['name'];  
+    $rank = $loginArray['rank'];
+    $suffix = $loginArray['suffix'];
+
+    //da check
+    if ($rowCount != 1 || $suspend != '0') {
+        header("Location: ../index.php");
+    }
 
     $type = $_GET['type']; //gets type
     $id = $_GET['id']; //gets responce id 
     //saves the thread id in the session
     $threadId = $_SESSION['responseId'];
 
-    //login check
-    $query = "SELECT * FROM `login` WHERE name='$name'";
-    $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-    $array = mysqli_fetch_array($result);
-    $suspend = $array['suspend']; 
-    $userID = $array['id'];
-    $count = mysqli_num_rows($result);
-    if ($count != 1 || $suspend != '0') {
-        header("Location: ../../index.php");
-        exit();
-    }
 
     //puts the admin ids into a array
     $AdminResult = mysqli_query($connection, "SELECT * FROM `login` WHERE `fourmAdmin` = 1") or die(mysqli_error($connection));

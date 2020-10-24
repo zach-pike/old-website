@@ -1,7 +1,7 @@
 <?php
     //gets time and starts session and connects to the the db
     require("time.php");
-    require("db_connect.php");
+    require("../../db_connect.php");
     session_start();
     
     $name = $_SESSION['name'];
